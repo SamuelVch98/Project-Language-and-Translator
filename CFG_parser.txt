@@ -1,0 +1,96 @@
+Type -> strings | Numbers
+Numbers -> naturalnumbers | realnumbers
+
+// pour les trucs type 1+2+3
+GeneralOperations -> number + arithmeticoperator + OperationsBis
+GeneralOperationBis -> number + arithmeticoperator + OperationBis | number
+
+// int ont un arithmetic en plus
+//répétition possible?
+IntOperation -> number % number
+
+//boolean operation
+//répétition possible?
+BooleanOperation -> Type "and" Type | Type "or" Type |Type "==" Type
+			| Type "<>" Type
+
+//string operation
+StringOperation -> strings + strings 
+
+// get by index
+GettingByIndex -> strings+lboxbracket+naturalnumber+rboxbracket
+			| identifier+lboxbracket+naturalnumber+rboxbracket
+
+// Built-in functions
+NegateBoolean -> "not" + booleans
+CharToInt -> "chr"+lparenthesis+naturalnumber+rparenthesis
+GetLength -> "len"+lparenthesis+strings+rparenthesis | "len"+lparenthesis+identifier+rparenthesis
+Floor -> "floor"+lparenthesis+realnumber+rparenthesis
+
+
+// DEBUT EMBRIQUEMENT
+S -> Constante + Records
+	| Records
+Assignement -> identifier+identifier+assignementoperator+Type+specialcharacter
+
+//constante declaration
+Constante -> "const"+Assignement
+
+//record definition
+Records -> "record" + identifier + lbracebracket + BlockRecords + rbracebrackets
+BlockRecords -> identifier + type + specialcharacter + BlockRecords | epsilon (le truc pour la fin )
+
+// Global Variables
+GlobalVariables -> keywords + Assignement
+
+// array creation
+Array -> identifier+lbracebracket+rbracebracket
+ArrayAssignement -> keywords + identifier + Array + assignementoperator + Array + lparenthesis+naturalnumber+rparenthesis
+NEW : ArrayElement -> identifier + lboxbracket + naturalnumber + rboxbracket + assignementoperator + number + specialcharacter
+NEW : ArrayFieldRecordAccess -> identifier + lboxbracket + naturalnumber + rboxbracket + identifier + assigenementOperator + number + specialcharacter
+
+//val et var
+
+var a int = 3;
+val e int = a*2;
+
+// Record
+
+var c int[] = int[](5);  // new array of length 5
+var d Person = Person("me", Point(3,7), int[](a*2));  // new record
+
+// Dellocation array and records
+var x Point = Point(3,5);
+delete x;
+
+//Procedure
+
+//Type of procedure
+proc square(v int) int {
+    return v*v;
+}
+
+proc copyPoints(p Point[]) Point {
+     return Point(p[0].x+p[1].x, p[0].y+p[1].y)
+}
+
+// There are built-in procedures for I/O: readInt, readReal, readString, writeInt, writeReal, write, writeln
+
+// Procedures and while/if/else/for blocks can declare local variables and values
+// mixed with statements.
+
+//Procedure main (without return)
+proc main() void {
+    var value int = readInt();
+    writeln(square(value));
+    var i int;
+    for i=1 to 100 by 2 {
+        while value!=3 {
+            // ....
+        }
+    }
+
+    i = (i+2)*2
+}
+
+
